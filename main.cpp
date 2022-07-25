@@ -4,8 +4,9 @@ int main(int argc, char** arg)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Window* win = SDL_CreateWindow("SDL Window", 30, 30, 600, 500, SDL_WINDOW_SHOWN);
-	SDL_Surface* screen = SDL_GetWindowSurface(win);
+	SDL_Renderer* screen = SDL_CreateRenderer(win, -1, 0);
 	item bob;
+	bob.setRenderer(screen);
 	bob.loadImage("grass.png");
 	bool run = true;
 	while (run)
@@ -19,10 +20,9 @@ int main(int argc, char** arg)
 					run = false;
 					break;
 			}
+		bob.draw();
+		SDL_RenderPresent(screen);
 		}
-		SDL_FillRect(screen, NULL, 0x00aaff);
-		bob.draw(screen);
-		SDL_UpdateWindowSurface(win);
 	}
 	SDL_DestroyWindow(win);
 	SDL_Quit();

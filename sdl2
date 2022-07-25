@@ -1,2 +1,2 @@
 #!/bin/sh
-g++ $1 -lSDL2
+g++ $1 -lSDL2 -lSDL2_image

@@ -10,11 +10,13 @@ class item
 	public:
 	item();
 	virtual ~item();
+	void setRenderer(SDL_Renderer* renderer);
 	bool loadImage(std::string filename);
-	void draw(SDL_Surface* dest);
+	void draw();
 
 	private:
-	SDL_Surface* image;
+	SDL_Renderer* ren;
+	SDL_Texture* image;
 	SDL_Rect pos;
 };
 #endif

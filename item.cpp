@@ -18,18 +18,17 @@ item::item()
 {
 	pos.x = 30;
 	pos.y = 60;
-	image = SDL_CreateRGBSurface(0, 100, 200, 32, 0, 0, 0, 0);
-	pos.w = image->clip_rect.w;
-	pos.h = image->clip_rect.h;
+	image = NULL;
+	pos.w = 100;
+	pos.h = 100;
 	std:cout << pos.w << ", " << pos.h << endl;
-	SDL_FillRect(image, NULL, 0xffff00);
 }
 
 item::~item()
 {
 	if (image != NULL)
 	{
-		SDL_FreeSurface(image);
+		SDL_DestroyTexture(image);
 	}
 }
 
@@ -37,20 +36,33 @@ bool item::loadImage(std::string filename)
 {
 	if (image!=NULL)
 	{
-		SDL_FreeSurface(image);
+		SDL_DestroyTexture(image);
 	}
-	image = IMG_Load(filename.c_str());
-	if (image!=NULL) 
+       	SDL_Surface* temp= IMG_Load(filename.c_str());
+	if (temp != NULL) 
 	{
-		return true;
+		image = SDL_CreateTextureFromSurface(ren, temp);
+		SDL_FreeSurface(temp);
+		if (image != NULL) 
+		{
+			return true;
+		}
 	}
 	return false;
 }
 
-void item::draw(SDL_Surface* dest)
+void item::setRenderer (SDL_Renderer* dest)
+{
+	ren = dest;
+}
+
+void item::draw()
 {
 	if (image != NULL)
 	{
-		SDL_BlitSurface(image, NULL, dest, &pos);
+		SDL_RenderCopy(ren, image, NULL, &pos);
+	}
+	else {
+		std::cout << "Help, image is NULL at draw()" << endl;
 	}
 }
