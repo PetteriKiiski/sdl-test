@@ -55,6 +55,17 @@ void item::setRenderer (SDL_Renderer* dest)
 {
 	ren = dest;
 }
+void item::setPos(int x, int y)
+{
+	pos.x = x;
+	pos.y = y;
+}
+
+void item::move(int x, int y)
+{
+	pos.x += x;
+	pos.y += y;
+}
 
 void item::draw()
 {

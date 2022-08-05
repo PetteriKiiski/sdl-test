@@ -12,6 +12,8 @@ class item
 	virtual ~item();
 	void setRenderer(SDL_Renderer* renderer);
 	bool loadImage(std::string filename);
+	void setPos(int x, int y);
+	void move(int x, int y);
 	void draw();
 
 	private:
