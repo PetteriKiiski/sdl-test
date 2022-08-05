@@ -21,7 +21,7 @@ int main (int argc, char** args)
 	for (int x = 0; x < 250; x++) 
 	{
 		rect.x = x * 2;
-		SDL_BlitSurface(IsItYellow, surface, NULL, &rect);
+		SDL_BlitSurface(IsItYellow, NULL, surface, &rect);
 	}
 	//Mainloop
 	while (run)
